@@ -1,11 +1,11 @@
-# Shadow Clone / 影分身之术
+# Naruto · Multi Shadow Clone / 火影·鸣人·多重影分身
 
-> **Turn one worker into a tactical squad.**  
-> **不是一个人硬扛，而是把任务拆给一支真正能并行作战的分身部队。**
+> **Turn one operator into a full combat squad.**  
+> **不是一个人硬扛，而是像鸣人一样，一次结印，直接拉出一整队能并行作战的分身。**
 
-`shadow-clone` is a practical OpenClaw skill focused on **parallel task execution**. It uses `sessions_spawn` to dispatch independent subagents, letting the main session act as commander, coordinator, and final integrator.
+`shadow-clone` is a practical OpenClaw skill for **parallel subagent execution**. Inspired by Naruto's iconic **Multi Shadow Clone Jutsu**, it transforms one task stream into multiple coordinated execution units through `sessions_spawn`, while keeping the main session in the role of commander, strategist, and final integrator.
 
-`shadow-clone` 是一个面向 OpenClaw 的实战型 skill，核心能力是 **并行派发分身执行任务**。它通过 `sessions_spawn` 把独立子任务交给多个分身推进，而本体负责分析、拆分、监工、汇总和验收。
+`shadow-clone` 是一个面向 OpenClaw 的实战型并行执行 skill。它借用鸣人的 **多重影分身之术** 作为灵感，把单线程任务流扩展成多个协同作战单位，通过 `sessions_spawn` 同时推进，而本体始终保持总指挥、总汇总和最终交付者的位置。
 
 ---
 
@@ -17,18 +17,19 @@
 
 ---
 
-## What makes it powerful / 它为什么强？
+## Why it hits hard / 为什么它够猛？
 
-Most agents are single-threaded in practice: they think, act, wait, and report in one line.
+Most agents execute like a lone fighter. `shadow-clone` executes like a squad.
 
-而 `shadow-clone` 做的，是把本来要串行推进的工作，拆成多个边界清晰、目标明确、可独立执行的子任务，让多个分身同时开工。
+普通 agent 更像单兵作战，`shadow-clone` 更像一支分身战术编队。
 
 It is powerful because it gives you:
 
 - real parallel execution / 真实并行执行
-- clearer role separation / 更清晰的角色边界
-- faster turnaround for multi-part work / 更快的多段任务推进
-- better use of the main session as orchestrator / 让本体专注统筹而不是陷入细碎劳动
+- better task pressure distribution / 更好的任务压力分摊
+- faster turnaround across multiple subtasks / 更快的多段任务推进速度
+- a stronger role for the main session as commander / 让本体真正回到指挥官位置
+- clone recovery discipline to avoid token leakage / 有查克拉归元机制，避免资源泄漏
 
 ---
 
@@ -36,32 +37,27 @@ It is powerful because it gives you:
 
 `shadow-clone` is the **parallel execution layer**.
 
-它的职责非常纯粹：
-- 拆分任务
-- 派出分身
-- 并行推进
-- 实时汇报
-- 回收分身
+It is not mainly about governance. It is about:
 
-It is not primarily a governance model like `cyber-emperor`.
+- task split / 拆任务
+- subagent dispatch / 放分身
+- parallel attack / 并行推进
+- real-time reporting / 实时回报
+- clone recovery / 查克拉回收
 
-它不是像 `cyber-emperor` 那样的治理框架，而是更偏向“兵部作战系统”——强调执行阵型、分身调度和查克拉回收。
+That makes it the tactical battle layer, not the imperial governance layer.
+
+它更像战术作战层，而不是治理统御层。
 
 ### Relationship with other capabilities / 与其他能力的关系
 
 - **`shadow-clone`** — parallel dispatch and subagent execution
-- **`cyber-emperor`** — governance, structure, and delivery control
-- **`claude-code-hook`** — complex coding execution for heavy implementation tasks
-
-也就是说：
-
-- **影分身**：擅长并行干活
-- **赛博皇帝**：擅长定朝纲和统御全局
-- **Claude Code Hook**：擅长接管复杂编码
+- **`cyber-emperor`** — governance, structure, delivery control
+- **`claude-code-hook`** — heavy coding execution for difficult implementation tasks
 
 ---
 
-## Shadow Clone Architecture / 影分身架构图
+## Multi Shadow Clone Architecture / 多重影分身架构图
 
 ```mermaid
 flowchart TD
@@ -70,61 +66,31 @@ flowchart TD
     A --> S[Task Split / 任务拆分]
     S --> C1[Clone 1 / 分身一]
     S --> C2[Clone 2 / 分身二]
-    S --> C3[Clone N / 分身N]
-    C1 --> R[Result Aggregation / 成果汇总]
+    S --> C3[Clone 3 / 分身三]
+    S --> CN[Multi Shadow Clone Array / 多重影分身阵列]
+    C1 --> R[Battle Results / 战果汇总]
     C2 --> R
     C3 --> R
+    CN --> R
     R --> V[Validation / 验收]
-    V --> K[Clone Recovery / 查克拉回收]
+    V --> K[Chakra Recovery / 查克拉归元]
     K --> D[Final Delivery / 最终交付]
 ```
 
-```mermaid
-sequenceDiagram
-    participant User as User / 用户
-    participant Main as Main Session / 本体
-    participant CloneA as Clone A
-    participant CloneB as Clone B
-    participant QA as Validation / 验收
-
-    User->>Main: Submit task
-    Main->>Main: Analyze and split
-    Main->>CloneA: sessions_spawn(task A)
-    Main->>CloneB: sessions_spawn(task B)
-    CloneA-->>Main: Report result A
-    CloneB-->>Main: Report result B
-    Main->>QA: Merge and validate
-    QA-->>Main: Pass / fail
-    Main-->>User: Final summary
-```
-
 ---
 
-## What it is good at / 它擅长处理什么任务？
+## Good Fit / 适合场景
 
-### Good fit / 适合场景
-
-- medium-size tasks with clear split boundaries / 可明确拆分的中等任务
+- medium-size tasks with clean split boundaries / 可明确拆分的中等任务
 - multi-part work that benefits from parallel execution / 适合并行推进的多段任务
-- document organization, data processing, structured coding work / 文档整理、数据处理、结构化编码任务
-- work where the main session should coordinate rather than do everything itself / 本体更适合当指挥官的任务
+- document organization, data processing, structured coding work / 文档整理、数据处理、结构化编码
+- tasks where the main session should command rather than do everything alone / 本体更适合当指挥官的任务
 
-### Not a good fit / 不适合场景
+## Not a Good Fit / 不适合场景
 
 - tiny direct tasks / 很小的直接任务
-- highly coupled edits to the same file / 高耦合同文件改动
-- tasks that need a full governance framework / 需要完整治理框架的项目级任务
-- work better handled directly by `cyber-emperor` + `claude-code-hook` / 更适合赛博皇帝统筹的复杂项目任务
-
----
-
-## Execution Principles / 执行原则
-
-1. split by boundary, not by wishful thinking / 按边界拆，不按想象拆
-2. parallel only when conflict risk is low / 只有低冲突任务才并行
-3. report immediately after dispatch / 放出分身立刻汇报
-4. recover clones immediately after completion / 分身完成立刻回收
-5. use `claude-code-hook` for heavy coding tasks / 复杂编码交给 Hook
+- highly coupled same-file edits / 高耦合同文件改动
+- project-scale work that requires governance and review layers / 需要完整治理与审查的项目级任务
 
 ---
 
