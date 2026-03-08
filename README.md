@@ -13,7 +13,14 @@
 
 - English: [README.en.md](./README.en.md)
 - 中文： [README.zh-CN.md](./README.zh-CN.md)
+- License / 协议： [LICENSE.md](./LICENSE.md)
 - Skill definition / 技能定义： [skills/shadow-clone/SKILL.md](./skills/shadow-clone/SKILL.md)
+
+## License / 许可说明
+
+This repository is released under a **Custom Non-Commercial License**. You may view, study, copy, and modify the contents for personal, educational, research, and other non-commercial purposes. **Commercial use, commercial distribution, and use in paid products or services require prior written authorization.** See [LICENSE.md](./LICENSE.md).
+
+本仓库采用 **Custom Non-Commercial License（自定义非商业许可）**。你可以出于个人、学习、研究及其他非商业目的查看、学习、复制与修改本仓库内容。**任何商业使用、商业分发，以及在收费产品或服务中的使用，均须事先取得书面授权。** 详见 [LICENSE.md](./LICENSE.md)。
 
 ---
 
