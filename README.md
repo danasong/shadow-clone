@@ -109,3 +109,16 @@ This public repository must not contain any secrets, tokens, passwords, private 
 
 Share methods, not keys.  
 公开 skill，发方法，不发钥匙。
+
+---
+
+## Questions / 问题咨询
+
+If you have questions, feedback, or want to discuss usage, you can join the community group by scanning the QR code below.
+
+如果你在使用过程中遇到问题、想反馈建议，或希望交流用法，可以扫描下方二维码加入交流群。
+
+![WeChat Group QR / 微信群二维码](./assets/wechat-group-qr.jpg)
+
+> The QR code may expire and should be refreshed in future updates.  
+> 二维码可能会过期，后续可通过仓库更新替换最新版。
